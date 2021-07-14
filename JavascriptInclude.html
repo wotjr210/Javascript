@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavascriptInclude</title>
+    
+    <script src="./main.js"></script>
+    <!-- 1) head
+        process : HTMLparsing중에 JS file을 fetch,execute후 다시 HTMLparsing.
+        JS file 사이즈가 크거나 혹은 인터넷이 느린경우, 컨텐츠가 사용자에게 보여지는데까지 많은 시간이 걸림.
+    -->
+    <img src="./img/head.PNG">
+
+    <script async src="./main.js"></script>
+    <!-- 3) head + async
+        process : HTMLparsing 중 JS file을 병렬적으로 fetch후 execute, 다시 HTMLparsing.
+        JS file을 병렬적으로 fetch하므로, 다운로드 받는 시간이 줄어듬.
+        HTMLparsing되기전 dom을 조작하는경우, 해당 시점에서 html이 정의되지 않을수도 있음.
+        사용자가 컨텐츠를 보는데 여전히 시간이 걸릴수있는 단점 발생.
+
+        다수의 JS file이 import되어있는 경우, 순서보장이 안됨.(순서의 의존적인 JS인경우 문제 발생할수도..)
+    -->
+    <img src="./img/async.PNG">
+
+    <script defer src="./main.js"></script>
+    <!-- 4) head + defer
+        proess : HTMLparsing 중 JS file을 병렬적으로 fetch하면서, HTMLparsing후 마지막에 execute.
+        가정 효휼적이고 안정적.
+    -->
+    <img src="./img/defer.PNG">
+
+</head>
+<body>
+    
+    <script src="./main.js"></script>
+    <!-- 2) body
+        process : HTMLparsing 진행된 후 JS file을 fetch,execute.
+        JS file이 실행되기전 사용자가 컨텐츠를 접할수 있기때문에, 의미있는 JS file(data 통신 및 dom control)이라면 
+        사용자가 기다려야함.
+    -->
+    <img src="./img/body-end.PNG">
+</body>
+</html>
