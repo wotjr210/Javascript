@@ -176,3 +176,20 @@ const calculate = ( command , a = 10 , b = 2) => {
     return result;
     
 }
+
+const calculate2 = ( command , a = 10 , b = 2) => {
+    switch(command){
+        case 'add' : 
+            return a+b;
+        case 'substract' :
+            return a-b;
+        case 'divide' :
+            return a/b;
+        case 'multiply' :
+            return a*b;
+        case 'remainder' :
+            return a%b;
+        default :    
+            throw Error(`unkown comman : ${command}`);
+    }
+}
