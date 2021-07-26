@@ -76,8 +76,8 @@ const helloBob = `hi ${brendan}!`; // template literals(string) , backtick
 console.log(`value: ${helloBob}, type: ${typeof helloBob}`);
 
 // boolean
-// false : 0 , null, undefined, NaN, ''
-// true : any other value
+// false : 0/-0 , null, undefined, NaN, ''
+// true : any other value , []
 const canRead = true;
 const test = 3 < 1; // flase
 console.log(`value: ${canRead}, type: ${typeof canRead}`);
