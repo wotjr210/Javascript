@@ -147,6 +147,76 @@ const simpeMuliply = (a , b) => {
 };
 // { } 키워드를 사용하게되면 좀더 반드시 return
 
+/** 
+*  Arrow funtion에 없는것 : 함수이름, this, arguments
+*  1. 함수이름이 없다 - 익명함수
+*  2. this가 없다 - 기존의 함수는 bind,apply등을 통해 this를 주입할수 있다. 하지만, 화살표 함수에는 this가 없기때문에 bind로 연결해줄  this가 없다.
+*  3. arguements가 없다.
+* 
+* 코드가 줄어드는 장점
+*  this를 바인딩 하지 않아도 선언된 위치의 바깥쪽 this를 접근 할 수 있다.
+*/
+
+// this
+const btn = document.getElementById('btn');
+
+var myObj = {
+    count : 3,
+    setCounter : function() {
+        console.log(this.count);
+        btn.addEventListener('click', (function() {
+            console.log(this); // 'button' => 버튼이 클릭이 되었을때 호출이 되므로...
+        }).bind(this)); // 함수를 한번 감싼후 bind() 처리하여 this를 묶어 주면 'myObj'로 변경된다.
+
+        btn.addEventListener('click', () => {
+            console.log(this);
+        });
+        // 하지만, 화살표 함수에는 this가 없기때문에 bind로 연결해줄  this가 없다. 스코프에 의해 setCounter의 this를 사용하게 된다.
+    }
+
+}
+// this는 호출하는 방법에 의해 결정이 된다!!!
+myObj.setCounter(); // 'myobj'
+
+const MyClass = funtion() {}
+new MyClass();
+
+// 클래스의 생성자 this라는 오브젝트가 생성이 되는데 화살표 함수에는 없기떄문에 생성자로서 사용할 수가 없고 또한 프로토타입이 존재하지 않는다.
+const MyClass2 = () => {};
+new MyClass2();
+
+// arguments
+const myFunc = function() {
+    console.log(arguments); // 파라미터를 배열처럼 하나씩 접근할 수있는 arguments속성, 배열은 아님
+}
+myFunc(1,2,3,4);
+
+const myFunc2 = () => {
+    console.log(arguments); // Uncaught ReferenceError : arguments is not defined.
+}
+myFunc2(1,2,3,4);
+
+// 그렇다면 파라미터로 각각 하나씩 a,b,c,d로 받아와야 할까??? => ES6문법을 이용한 처리, 이것은 실제 배열로 떨어짐.
+const myFunc4 = (...args) => {
+    console.log(args);
+}
+myFunc4(1,2,3,4);
+
+
+
+
+function outer() {
+    const myFunc3 = () => {
+        console.log(arguements); // Arguments(4)
+        /* 화살표 함수이므로 자신은 rguments가 없지만, 
+        스코프 체인으로 인해 함수가 선언된 위치에 함수 ounter가 실행되는 컨텍스트에서 스코프를 참조하게 된다.*/
+    }
+    myFunc3();
+}
+outer(1,2,3,4);
+
+
+
 // IIFE: Immediately Invoked Function Expression
 (function hello() {
     console.log('IIFE');
